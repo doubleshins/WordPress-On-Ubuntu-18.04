@@ -112,7 +112,7 @@ date.timezone = Asia/Taipei
 # sudo chmod -R 755 / var / www / html / wordpress /
 ```
 
-## step 6 : 配置 wordpress
+## step 7 : 配置 wordpress
 
 #### 接下來，運行以下命令以創建WordPress  wp-config.php  文件。這是WordPress的默認配置文件。
 ```
@@ -146,15 +146,52 @@ define（'DB_CHARSET'，'utf8'）;
 define（'DB_COLLATE'，''）;
 ```
 
+## step 8 : 配置新的 wordpress 網站
 
+#### 接下來，在服務器上配置WordPress站點配置文件。運行以下命令以創建名為wordpress的新配置文件 
+```
+# sudo nano /etc/nginx/sites-available/wordpress
+```
 
+#### 然後將下面的內容複製並粘貼到文件中並保存。將example.com替換  為您自己的域名。
+```
+server {
+    listen 80;
+    listen [::]:80;
+    root /var/www/html/wordpress;
+    index  index.php index.html index.htm;
+    server_name  example.com www.example.com;
 
+     client_max_body_size 100M;
 
+    location / {
+        try_files $uri $uri/ /index.php?$args;        
+    }
 
+    location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass             unix:/var/run/php/php7.2-fpm.sock;
+    fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+```
 
+## step 9 : 啟用 wordpress 網站
 
+#### 配置上面的VirtualHost後，通過運行以下命令啟用它
+```
+# sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
+```
 
+#### 現在全部都配置好了...運行下面的命令重新加載Nginx Web服務器和PHP-FPM設置。
+```
+# sudo systemctl restart nginx.service
+# sudo systemctl restart php7.2-fpm.service
+```
 
+#### 重新啟動Nginx後，打開瀏覽器並瀏覽到服務器IP地址或主機名。如果一切設置正確，您應該看到WordPress默認配置嚮導。
+
+#### http://example.com
 
 
 
