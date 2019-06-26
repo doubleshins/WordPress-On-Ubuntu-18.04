@@ -200,6 +200,7 @@ server {
 
 
 ## 參考資料
+- WordPress教學：32個課程（安裝＋主題外掛＋購物車）: https://daotw.com/wordpress%E6%95%99%E5%AD%B8/ 
 - Install WordPress On Ubuntu 18.04 LTS With Nginx, MariaDB And PHP-FPM : https://websiteforstudents.com/install-wordpress-on-ubuntu-18-04-lts-bata-with-nginx-mariadb-and-php-fpm/
 - How To Install WordPress with LEMP on Ubuntu 18.04 : https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-on-ubuntu-18-04
 
